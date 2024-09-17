@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@import "./root.css";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  font-weight: var(--fwr);
+  color: var(--black);
+
+  text-decoration: none;
+  list-style: none;
+  font-style: normal;
+
+  font-family: 'Nunito', sans-serif;
+}
+
+header, main, footer, section {
+  background-color: var(--color-white);
+}
+
+section {
+  padding: var(--p18) var(--p15) var(--p15) var(--p15);
+}
+h1 {
+  font-size: var(--f8);
+  font-weight: var(--fwd);
+
+  margin-bottom: var(--m10);
+  
+  letter-spacing: var(--ls3);
+}
+
+h2 {
+  font-size: var(--f6);
+  font-weight: var(--fwb);
+
+  margin-bottom: var(--m1);
+}
+
+p, span {
+  font-size: var(--f2);
+  letter-spacing: var(--ls1);
+  line-height: var(--lh8);
+}
+ figcaption {
+    font-size: var(--f1);
+  }
+
+a {
+  display: flex;
+  align-items: center;
+
+  color: inherit;
+
+  font-size: var(--f2);
+  font-weight: var(--fwm);
+  letter-spacing: var(--ls1);
+}
+
+
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--p6);
+}
+
+button {
+  padding: var(--p2) var(--p5);
+
+  width: max-content;
+
+  border: none;
+  border-radius: var(--bdr5);
+  
+  cursor: pointer;
+
+  background-color: var(--btn-normal);
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: var(--g12);
+  
+    font-size: var(--f2);
+    color: var(--color-white);
+    font-weight: var(--fwm);
+  }
+
+  &:hover {
+    background-color: var(--btn-hover);
+  }
+}
+
