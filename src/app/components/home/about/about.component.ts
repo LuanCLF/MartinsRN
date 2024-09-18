@@ -48,11 +48,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
   <article id="art3">
   <figure>
-    <img src="./assets/images/igreja centro.jpg" alt="Igreja Matriz">
-    <figcaption>Igreja Matriz</figcaption>
+    <img src="./assets/images/capela.jpg" alt="Capela Nossa Senhora do Rosário">
+    <figcaption>Igreja do Rosário</figcaption>
   </figure>
   <p>
-  Martins foi fundada em 1841 e possui uma rica história, com várias mudanças de nome ao longo dos anos até se estabelecer como Martins em 1890, em homenagem a Francisco Martins de Roriz, fundador da capela de Nossa Senhora da Conceição.
+  Martins foi fundada em 1841 e possui uma rica história, com várias mudanças de nome ao longo dos anos até se estabelecer como Martins em 1890, em homenagem a Francisco Martins de Roriz, fundador da Capela de Nossa Senhora da Rosário.
   </p>
   </article>
 

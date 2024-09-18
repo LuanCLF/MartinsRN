@@ -39,12 +39,12 @@ h2 {
 }
 
 p, span {
-  font-size: var(--f2);
+  font-size: var(--f3);
   letter-spacing: var(--ls1);
   line-height: var(--lh8);
 }
  figcaption {
-    font-size: var(--f1);
+    font-size: var(--f2);
   }
 
 a {
@@ -53,7 +53,7 @@ a {
 
   color: inherit;
 
-  font-size: var(--f2);
+  font-size: var(--f3);
   font-weight: var(--fwm);
   letter-spacing: var(--ls1);
 }

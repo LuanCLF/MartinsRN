@@ -1,12 +1,12 @@
 header {
   nav {
-    padding: var(--p11) var(--p7);
+    padding: var(--p9) var(--p7);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
       justify-content: end;
     }
 
@@ -46,14 +46,14 @@ header {
           }
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
           display: none;
           flex-direction: column;
           align-items: end;
           justify-content: end;
 
           position: absolute;
-          top: var(--h10);
+          top: var(--h11);
           right: var(--p10);
 
           background-color: white;
@@ -63,7 +63,7 @@ header {
 
           border-radius: 0 0 10px 10px;
 
-          padding: var(--p6) var(--p3);
+          padding: var(--p8) var(--p8);
         }
 
         &.show {
@@ -80,10 +80,10 @@ header {
         background-color: var(--color-white);
         color: var(--green-1);
 
-        font-size: var(--f8);
+        font-size: var(--f14);
         font-weight: var(--fwb);
 
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
           display: block;
         }
       }
@@ -97,11 +97,7 @@ header {
 
     padding: var(--p18) var(--p16) var(--p20) var(--p16);
 
-    background: linear-gradient(
-      var(--green-0),
-      var(--green-2) 90%
-    );
-
+    background: linear-gradient(var(--green-0), var(--green-2) 90%);
 
     h1 {
       font-size: var(--f18);
@@ -140,7 +136,7 @@ header {
         li {
           display: flex;
           align-items: center;
-          gap: var(--g10)
+          gap: var(--g10);
         }
       }
     }

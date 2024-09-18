@@ -41,7 +41,7 @@ import { ButtonComponent } from '../../button/button.component';
     <article id="art3">
       <figure>
         <img src="./assets/images/festival.jpg" alt="Festival gastronômico de martins">
-        <figcaption>Imagem de um Restaurante no Festival Gastronômico de Martins</figcaption>
+        <figcaption>Um Restaurante no Festival Gastronômico de Martins</figcaption>
       </figure>
       <div>
         <h2>Eventos</h2>
