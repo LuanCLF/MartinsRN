@@ -1,4 +1,6 @@
 footer {
+  width: var(--wfull);
+
   section {
     display: flex;
     flex-direction: column;

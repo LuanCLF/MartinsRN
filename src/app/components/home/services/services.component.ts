@@ -22,7 +22,7 @@ import { ButtonComponent } from '../../button/button.component';
       <p>
         A cidade oferece uma variedade de opções de hospedagem, aluguel e compra de imóveis para atender às necessidades de qualquer família ou pessoa. Hotéis, pousadas, casas de temporada e apartamentos, garantindo o conforto e a segurança de todos os hóspedes. Existe uma grande variedade de opções para todos os gostos e bolsos.
       </p>
-      <app-button href="#"></app-button>
+      <app-button href="/hospedagem"></app-button>
       </div>
     </article>
     <article id="art2">
@@ -35,7 +35,7 @@ import { ButtonComponent } from '../../button/button.component';
         <p>
           A cidade oferece uma variedade de opções de restaurantes e lanchonetes para atender às necessidades de qualquer família ou pessoa. Restaurantes, lanchonetes, bares e padarias, garantindo o conforto e a segurança de todos os clientes. Existe uma grande variedade de opções para todos os gostos e bolsos.
         </p>
-        <app-button href="#"></app-button>
+        <app-button href="/alimentacao"></app-button>
       </div>
     </article>
     <article id="art3">

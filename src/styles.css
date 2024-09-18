@@ -4,6 +4,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  border: 0;
 
   font-weight: var(--fwr);
   color: var(--black);
@@ -32,10 +33,15 @@ h1 {
 }
 
 h2 {
-  font-size: var(--f6);
+  font-size: var(--f7);
   font-weight: var(--fwb);
 
   margin-bottom: var(--m1);
+}
+
+h3 {
+  font-size: var(--f6);
+  font-weight: var(--fwsb);
 }
 
 p, span {
@@ -45,7 +51,7 @@ p, span {
 }
  figcaption {
     font-size: var(--f2);
-  }
+ }
 
 a {
   display: flex;

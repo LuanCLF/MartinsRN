@@ -15,7 +15,7 @@ import { ButtonComponent } from "../button/button.component";
     <p>
       Site criado por <span>Luan Charlys</span>, para um projeto de faculdade, com o intuito de mostrar um pouco sobre a cidade de Martins, RN.
     </p>
-    <app-button href="#menu" linkText="Voltar ao menu" imgSrc="assets/icons/arrow-up.svg"></app-button>
+    <app-button href="#menu" linkText="Voltar ao início" imgSrc="assets/icons/arrow-up.svg"></app-button>
   </section>
   </footer>`,
   styleUrl: './footer.component.css',
