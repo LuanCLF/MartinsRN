@@ -48,7 +48,7 @@ import { ButtonComponent } from '../../button/button.component';
         <p>
           A cidade oferece uma variedade de opções de eventos para atender às necessidades de qualquer família ou pessoa. Festivais, shows, feiras e competições, garantindo o conforto e a segurança de todos os participantes. Existe uma grande variedade de opções para todos os gostos e bolsos.
         </p>
-        <app-button href="#"></app-button>
+        <app-button href="/eventos"></app-button>
       </div>
     </article>
   </section>

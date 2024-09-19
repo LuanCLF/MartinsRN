@@ -22,10 +22,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
             <a href="/alimentacao">Alimentação <span></span></a>
           </li>
           <li>
-            <a href="#">Eventos <span></span></a>
+            <a href="/eventos">Eventos <span></span></a>
           </li>
           <li>
-            <a href="/Contato">Contato <span></span></a>
+            <a href="/contato">Contato <span></span></a>
           </li>
         </ul>
       </div>
