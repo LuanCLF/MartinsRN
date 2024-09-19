@@ -22,7 +22,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     }
   </button>
   `,
-  styleUrl: './button.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {

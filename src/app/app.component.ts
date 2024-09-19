@@ -9,7 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
   template: `
     <router-outlet></router-outlet>
     <app-footer></app-footer>
-  `,
+  `
 })
 export class AppComponent {
   title = 'Martins';
