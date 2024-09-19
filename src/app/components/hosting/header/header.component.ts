@@ -15,7 +15,7 @@ import { NavComponent } from '../../nav/nav.component';
           <div>
             <h1>Encontre Seu Lugar</h1>
             <p>
-              Descubra hotéis, chalés, pousadas e casas de temporada para curtir sua viagem, e também casas para compra e aluguel.
+              Descubra hotéis, chalés, pousadas e casas de temporada para curtir sua viagem, e também casas para compra e aluguel
             </p>
           </div>
         </article>

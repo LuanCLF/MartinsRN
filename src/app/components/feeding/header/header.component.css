@@ -1,3 +1,111 @@
-:host {
-  display: block;
+header {
+  section {
+    color: var(--color-white);
+
+    padding: 0;
+    #art1 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      
+      gap: var(--g20);
+
+      background: linear-gradient(var(--green-0), var(--green-2) 90%);
+
+      padding: var(--p13) var(--p10);
+
+      @media (max-width: 1018px) {
+      flex-direction: column-reverse;
+      align-items: center;
+
+      text-align: center;
+      }
+
+      div {
+        max-width: var(--w25);
+         h1 {
+        font-size: var(--f18);
+  
+        background: linear-gradient(170deg, var(--red-4), var(--red-0));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+  
+        margin-bottom: var(--m10);
+       }
+  
+         p {
+        margin-bottom: var(--m14);
+       }
+      }
+  
+      img {
+        width: var(--w28);
+        height: var(--w24);
+  
+        border-radius: var(--bdrp2) var(--bdrp);
+  
+        object-fit: cover;
+  
+        @media (max-width: 1320px) {
+          width: var(--w27);
+          height: var(--w23);
+        }
+
+        @media (max-width: 1070px) {
+          width: var(--w24);
+          height: var(--w20);
+        }
+
+        @media (max-width: 755px) {
+          width: var(--w23);
+          height: var(--w19);
+        }
+
+        @media (max-width: 410px) {
+          width: var(--w22);
+          height: var(--w17);
+        }
+      }
+      
+    }
+    #art2 {
+      background-color: var(--green-1);
+  
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+  
+        padding: var(--p10);
+  
+        li {
+          display: flex;
+          align-items: center;
+  
+          padding: var(--p7) var(--p10);
+  
+          gap: var(--g20);
+  
+          max-width: var(--w24);
+  
+          span {
+            font-size: var(--f12);
+            font-weight: var(--fwd);
+  
+            @media (max-width: 755px) {
+              font-size: var(--f10);
+            }
+          }
+  
+          div {
+            h3 {
+              margin-bottom: var(--m6);
+            }
+          }
+        }
+      }
+    }
+  }
 }
