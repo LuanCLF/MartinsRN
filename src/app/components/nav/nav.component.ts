@@ -9,7 +9,20 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   ],
   template: `
   <nav>
-      <div (mouseover)="showMenu = true" (mouseout)="hideMenu()">
+    
+      <ul id="acess">
+        <li>
+          <a href="/perfil"><img src="assets/icons/person.svg" alt="ícone de perfil"></a>
+        </li>
+        <li>
+          <a href="/login">Login <span></span></a>
+        </li>
+        <li>
+          <a href="/cadastro"> Cadastro <span></span></a>
+        </li>
+      </ul>
+    
+      <div id="divMenu" (mouseover)="showMenu = true" (mouseout)="hideMenu()">
         <button id="menu-burger">☰</button>
         <ul [class.show]="showMenu">
           <li>

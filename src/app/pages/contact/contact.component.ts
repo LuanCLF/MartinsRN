@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HeaderComponent } from '../../components/contact/header/header.component';
 import { ContactsComponent } from "../../components/contact/contacts/contacts.component";
+import { NavComponent } from "../../components/nav/nav.component";
 
 @Component({
   selector: 'app-contact',
   standalone: true,
   imports: [
     CommonModule,
-    HeaderComponent,
-    ContactsComponent
+    ContactsComponent,
+    NavComponent
 ],
   template: `
-  <app-header></app-header>
+  <header>
+    <app-nav></app-nav>
+  </header>
   <main>
     <app-contacts></app-contacts>
   </main>`,
