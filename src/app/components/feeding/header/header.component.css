@@ -24,7 +24,7 @@ header {
       div {
         max-width: var(--w25);
          h1 {
-        font-size: var(--f18);
+        font-size: var(--f16);
   
         background: linear-gradient(170deg, var(--red-4), var(--red-0));
         -webkit-background-clip: text;

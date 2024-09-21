@@ -24,17 +24,18 @@ import { ButtonComponent } from '../../components/button/button.component';
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <div>
               <label for="name">Nome:</label>
-              <input type="text" id="name" formControlName="name" placeholder="Insira seu nome" required>
+              <input type="text" id="name" formControlName="name" placeholder="Seu nome" required>
             </div>
             <div>
               <label for="email">Email:</label>
-              <input type="email" id="email" formControlName="email" placeholder="Insira seu email" required>
+              <input type="email" id="email" formControlName="email" placeholder="Seu email" required>
             </div>
             <div>
               <label for="password">Senha:</label>
-              <input type="password" id="password" formControlName="password" placeholder="Insira sua senha" required>
+              <input type="password" id="password" formControlName="password" placeholder="No mínimo 6 dígitos" required>
+              <span id="invalid">Senha inválida</span>
             </div>
-          <app-button linkText="Cadastrar"></app-button>
+            <button type="submit" >Cadastrar</button>
         </form>
     </section>
   </main>`,
@@ -56,6 +57,13 @@ export class SingupComponent {
     if (this.signupForm.valid) {
       const formData = this.signupForm.value;
       console.log('Form Data:', formData);
+    }
+
+    if (this.signupForm.get('password')!.invalid) {
+      const passwordInput = document.getElementById('password')!;
+      const invalidSpan = document.getElementById('invalid')!;
+      passwordInput.style.border = '1px solid var(--red-2)';
+      invalidSpan.style.display = 'block';
     }
   }
 }

@@ -28,14 +28,14 @@ import { NavComponent } from '../../nav/nav.component';
                 <p>Opções confortáveis para todos os gostos.</p>
               </div>
             </li>
-            <li id="li2">
+            <li>
               <span> 02 </span>
               <div>
                 <h3>Contato Direto</h3>
                 <p>Fale diretamente com os proprietários sem intermediários.</p>
               </div>
             </li>
-            <li id="li3">
+            <li>
               <span> 03 </span>
               <div>
                 <h3>Facilidade</h3>

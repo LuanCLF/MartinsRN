@@ -17,7 +17,7 @@ import { NavComponent } from "../../nav/nav.component";
           <img src="assets/images/desfile.JPG" alt="Imagem de cavaleiros no desfile cívico de Martin RN" />
           <div>
             <h1>
-              Conheça Os Melhores Eventos
+              Os Melhores Eventos
             </h1>
             <p>
               Acompanhe os melhores eventos da região, e fique por dentro de tudo que acontece em Martin RN.

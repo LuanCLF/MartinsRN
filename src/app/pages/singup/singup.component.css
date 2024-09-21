@@ -77,6 +77,16 @@ main {
 
           color: var(--color-black);
         }
+
+        span {
+          font-size: var(--f1);
+
+          color: var(--red-2);
+
+          margin-top: -10px;
+
+          display: none;
+        }
       }
     }
   }
