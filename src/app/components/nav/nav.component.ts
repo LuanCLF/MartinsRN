@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,15 +12,22 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   <nav>
     
       <ul id="acess">
-        <li>
-          <a href="/perfil"><img src="assets/icons/person.svg" alt="ícone de perfil"></a>
-        </li>
-        <li>
-          <a href="/login">Login <span></span></a>
-        </li>
-        <li>
-          <a href="/cadastro"> Cadastro <span></span></a>
-        </li>
+        <ng-container *ngIf="!loggedIn(); else loggedInTemplate">
+          <li>
+            <a href="/login">Login</a>
+          </li>
+          <li>
+            <a href="/cadastro">Registrar</a>
+          </li>
+        </ng-container>
+        <ng-template #loggedInTemplate>
+          <li>
+            <a href="/perfil">Perfil</a>
+          </li>
+          <li>
+            <a href="#" (click)="logout()">Sair</a>
+          </li>
+        </ng-template>
       </ul>
     
       <div id="divMenu" (mouseover)="showMenu = true" (mouseout)="hideMenu()">
@@ -50,7 +58,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 export class NavComponent {
   showMenu = false;
 
+  constructor(private userService: UserService) {}
+
   hideMenu() {
     setTimeout(() => (this.showMenu = false), 500);
+  }
+
+  loggedIn() {
+    return this.userService.isLoggedIn();
+  }
+
+  logout() {
+    this.userService.logout();
   }
  }

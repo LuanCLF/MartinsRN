@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AboutComponent } from '../../components/home/about/about.component';
 import { ServicesComponent } from '../../components/home/services/services.component';
 import { HeaderComponent } from '../../components/home/header/header.component';
+import { log } from 'console';
+import { apirUrl } from '../../services/variables';
 
 @Component({
   selector: 'app-home',
@@ -16,4 +18,5 @@ import { HeaderComponent } from '../../components/home/header/header.component';
   </main>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {}
+export class HomeComponent {
+}

@@ -99,3 +99,27 @@ button {
   }
 }
 
+.inputErrorOff {
+  border: none;
+}
+.inputErrorOn {
+  border: 1px solid var(--red-2);
+}
+
+
+.messageErrorOff {
+  display: none;
+
+  font-size: var(--f1);
+
+  color: var(--red-2);
+
+  margin-top: -10px;
+  margin-bottom: -20px;
+}
+.messageErrorOn {
+  display: block;
+
+ 
+}
+
