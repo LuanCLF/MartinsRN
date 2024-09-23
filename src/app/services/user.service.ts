@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { apirUrl } from './variables';
 import { UserLogin, UserRegister } from '../interfaces/user.';
 import { Router } from '@angular/router';
-import { StorageService } from './StorageService.service';
 import { isPlatformBrowser } from '@angular/common';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,7 @@ export class UserService {
     return new Observable(observer => {
       this.http.post<any>(`${this.apiUrl}/login`,  user).subscribe({
         next: response => {
+          console.table(response);
           this.storageService.setItem('token', response.token);
           this.router.navigate(['/']);
           observer.next(true);

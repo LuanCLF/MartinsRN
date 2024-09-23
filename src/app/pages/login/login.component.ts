@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavComponent } from "../../components/nav/nav.component";
 import { ButtonComponent } from "../../components/button/button.component";
@@ -37,7 +37,7 @@ import { UserService } from '../../services/user.service';
           <input type="password" id="password" formControlName="password" placeholder="Insira sua senha" required>
           <span id="invalidPassword"></span>
         </div>
-        <button type="submit">
+        <button type="submit" #submitButton [disabled]="isSubmitting">
           Acessar minha conta
         </button>
       </form>
@@ -50,6 +50,9 @@ import { UserService } from '../../services/user.service';
 export class LoginComponent {
   loginForm: FormGroup;
   apiurl = apirUrl
+  isSubmitting = false;
+
+  @ViewChild('submitButton') submitButton!: ElementRef<HTMLButtonElement>;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.loginForm = this.fb.group({
@@ -75,9 +78,14 @@ export class LoginComponent {
         password: password.value
       }
 
+      this.isSubmitting = true;
+      this.submitButton.nativeElement.style.cursor = 'wait';
+
       this.userService.auth(user).subscribe({
         next: response => {
           console.log('Login success', response);
+          this.submitButton.nativeElement.style.cursor = 'pointer';  
+          this.isSubmitting = false;
         },
         error: error => {
           if (error.conflict) {
@@ -85,6 +93,8 @@ export class LoginComponent {
             else if (error.status === 401) this.passwordInvalid(true, error.message);
           }
           console.error('Login failed', error);
+          this.submitButton.nativeElement.style.cursor = 'pointer';
+          this.isSubmitting = false;
         }
       });
     

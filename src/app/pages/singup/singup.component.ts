@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -11,6 +11,8 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { UserService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserRegister } from '../../interfaces/user.';
+import { UtilsService } from '../../services/utils.service';
+import { table } from 'console';
 
 @Component({
   selector: 'app-singup',
@@ -61,9 +63,9 @@ import { UserRegister } from '../../interfaces/user.';
               placeholder="No mínimo 6 dígitos"
               required
             />
-            <span id="invalidPassword">Min 6 e max 20 caracteres</span>
+            <span id="invalidPassword" >Min 6 e max 20 caracteres</span>
           </div>
-          <button type="submit">Cadastrar</button>
+          <button type="submit" #submitButton [disabled]="isSubmitting">Cadastrar</button>
         </form>
       </section>
     </main>`,
@@ -72,12 +74,15 @@ import { UserRegister } from '../../interfaces/user.';
 })
 export class SingupComponent {
   signupForm: FormGroup;
+  isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  @ViewChild('submitButton') submitButton!: ElementRef<HTMLButtonElement>;
+
+  constructor(private fb: FormBuilder, private userService: UserService, private utils: UtilsService) {
     this.signupForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150), Validators.pattern('^[a-zA-Z ]*$')]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150), Validators.pattern('^[a-zA-Z ]*$'), this.utils.noWhitespaceValidator]],
+      email: ['', [Validators.required, Validators.email, this.utils.noWhitespaceValidator]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), this.utils.noWhitespaceValidator]],
     });
   }
 
@@ -86,16 +91,14 @@ export class SingupComponent {
     const email = this.signupForm.get('email')!;
     const password = this.signupForm.get('password')!;
 
-    if (name.invalid) this.nameInvalid(true);
+    if (name.invalid || name.value.trim() === 0 ) this.nameInvalid(true);
     else this.nameInvalid(false);
 
-    if (email.invalid) this.emailInvalid(true, "Email inválido");
+    if (email.invalid || email.value.trim() === 0) this.emailInvalid(true, "Email inválido");
     else this.emailInvalid(false);
 
-    if (password.invalid) this.passwordInvalid(true);
+    if (password.invalid || password.value.trim() === 0) this.passwordInvalid(true);
     else this.passwordInvalid(false);
-    
-    console.log( "email value " + email.value + "  email valid " + email.valid);
 
     if (this.signupForm.valid) {
       const user: UserRegister = {
@@ -104,13 +107,20 @@ export class SingupComponent {
         password: password.value,
       };
 
+      this.isSubmitting = true;
+      this.submitButton.nativeElement.style.cursor = 'wait';
+
       this.userService.register(user).subscribe({
         next: () => {
           console.log('User registered');
+          this.submitButton.nativeElement.style.cursor = 'pointer';  
+          this.isSubmitting = false;
         },
         error: (error) => {
-          if (error.conflict) this.emailInvalid(error.message);
+          if (error.conflict) this.emailInvalid(true, error.message);
           else console.error('User registration failed');
+          this.submitButton.nativeElement.style.cursor = 'pointer';  
+          this.isSubmitting = false;
         },
       });
     }
