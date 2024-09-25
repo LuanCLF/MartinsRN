@@ -14,18 +14,18 @@ import { UserService } from '../../services/user.service';
       <ul id="acess">
         <ng-container *ngIf="!loggedIn(); else loggedInTemplate">
           <li>
-            <a href="/login">Login</a>
+            <a href="/login">Login <span></span></a>
           </li>
           <li>
-            <a href="/cadastro">Registrar</a>
+            <a href="/cadastro">Registrar <span></span></a>
           </li>
         </ng-container>
         <ng-template #loggedInTemplate>
           <li>
-            <a href="/perfil">Perfil</a>
+            <a href="/perfil">Perfil <span></span></a>
           </li>
           <li>
-            <a href="#" (click)="logout()">Sair</a>
+            <a href="#" (click)="logout()">Sair <span></span></a>
           </li>
         </ng-template>
       </ul>

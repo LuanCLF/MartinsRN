@@ -8,22 +8,34 @@ export class UtilsService {
 
   constructor() { }
 
-  WhitespaceValidator(field: string): boolean | string  {
-    const isWhitespace = field.trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid 
+  removeWhitespace(value: string): string {
+    return value.trim();
   }
+
 
   noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
-    const trimmedValue = (control.value || '').trim();
+    if(control.value == null) return null;
+
+    const trimmedValue = control.value.trim();
     const isWhitespace = trimmedValue.length === 0;
-   
+
     if (isWhitespace) return { whitespace: true };
-     else {
-      if (control.value !== trimmedValue) control.setValue(trimmedValue, { emitEvent: false });
-      
-      return null;
-    }
+    else return null;
+    
   }
 
+  invalidDate(date: Date): boolean {
+    if (date == null) return true;
+  
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+  
+    const past = new Date(currentDate);
+    past.setFullYear(currentDate.getFullYear() - 50);
+  
+    const future = new Date(currentDate);
+    future.setFullYear(currentDate.getFullYear() + 50);
+  
+    return selectedDate < past && selectedDate > future;
+  }
 }

@@ -2,7 +2,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { apirUrl } from './variables';
-import { UserLogin, UserRegister } from '../interfaces/user.';
+import { IUserLogin, IUserRegister } from '../interfaces/user.';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { StorageService } from './storage.service';
@@ -23,7 +23,7 @@ export class UserService {
   this.isBrowser = isPlatformBrowser(this.platformId);
 }
 
-  register(user: UserRegister): Observable<any> {
+  register(user: IUserRegister): Observable<any> {
     return new Observable(observer => {
       this.http.post<any>(`${this.apiUrl}/user`, user).subscribe({
         next: response => {
@@ -44,12 +44,12 @@ export class UserService {
     });
   }
 
-  auth(user: UserLogin): Observable<any> {
+  auth(user: IUserLogin): Observable<any> {
     return new Observable(observer => {
       this.http.post<any>(`${this.apiUrl}/login`,  user).subscribe({
         next: response => {
-          console.table(response);
           this.storageService.setItem('token', response.token);
+          this.storageService.setItem('name', response.name);
           this.router.navigate(['/']);
           observer.next(true);
           observer.complete();

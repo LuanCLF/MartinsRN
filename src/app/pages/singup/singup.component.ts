@@ -10,9 +10,8 @@ import { NavComponent } from '../../components/nav/nav.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { UserService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
-import { UserRegister } from '../../interfaces/user.';
+import { IUserRegister } from '../../interfaces/user.';
 import { UtilsService } from '../../services/utils.service';
-import { table } from 'console';
 
 @Component({
   selector: 'app-singup',
@@ -101,10 +100,10 @@ export class SingupComponent {
     else this.passwordInvalid(false);
 
     if (this.signupForm.valid) {
-      const user: UserRegister = {
-        name: name.value,
-        email: email.value,
-        password: password.value,
+      const user: IUserRegister = {
+        name: this.utils.removeWhitespace(name.value),
+        email: this.utils.removeWhitespace(email.value),
+        password: this.utils.removeWhitespace(password.value),
       };
 
       this.isSubmitting = true;

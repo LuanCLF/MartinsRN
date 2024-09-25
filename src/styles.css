@@ -90,7 +90,7 @@ button {
     gap: var(--g12);
   
     font-size: var(--f2);
-    color: var(--color-white);
+    color: var(--color-text-b);
     font-weight: var(--fwm);
   }
 
@@ -122,4 +122,7 @@ button {
 
  
 }
+
+
+
 

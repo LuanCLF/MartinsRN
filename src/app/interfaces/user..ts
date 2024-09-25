@@ -1,15 +1,15 @@
-export interface UserRegister {
+export interface IUserRegister {
   name: string;
   email: string;
   password: string;
  }
 
- export interface UserLogin {
+ export interface IUserLogin {
   email: string;
   password: string;
  }
  
- export interface User {
+ export interface IUser {
   id: number;
   name: string;
   email: string;

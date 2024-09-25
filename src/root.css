@@ -18,8 +18,12 @@
   --green-1: #266237;
   --green-2: #378656;
 
-  --btn-normal: hsl(155, 32%, 34%);
-  --btn-hover: hsl(155, 32%, 44%);
+  /* --btn-normal: hsl(155, 32%, 34%);
+  --btn-hover: hsl(155, 32%, 44%); */
+
+  --btn-normal: hsl(41, 71%, 46%);
+  --btn-hover: hsl(45, 71%, 46%);
+  --color-text-b: #fff;
 
   --red-0: hsl(1, 71%, 46%);
   --red-1: hsl(31, 71%, 46%);

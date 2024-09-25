@@ -5,8 +5,9 @@ import { NavComponent } from "../../components/nav/nav.component";
 import { ButtonComponent } from "../../components/button/button.component";
 import {  HttpClientModule } from '@angular/common/http';
 import { apirUrl } from '../../services/variables';
-import { UserLogin } from '../../interfaces/user.';
+import { IUserLogin } from '../../interfaces/user.';
 import { UserService } from '../../services/user.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,7 @@ import { UserService } from '../../services/user.service';
           <span id="invalidEmail"></span>
         </div>
         <div>
-          <label for="password">Password:</label>
+          <label for="password">Senha:</label>
           <input type="password" id="password" formControlName="password" placeholder="Insira sua senha" required>
           <span id="invalidPassword"></span>
         </div>
@@ -54,7 +55,7 @@ export class LoginComponent {
 
   @ViewChild('submitButton') submitButton!: ElementRef<HTMLButtonElement>;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private utils: UtilsService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
@@ -73,9 +74,9 @@ export class LoginComponent {
     else this.passwordInvalid(false);
     
     if (this.loginForm.valid) {
-      const user: UserLogin = {
-        email: email.value,
-        password: password.value
+      const user: IUserLogin = {
+        email: this.utils.removeWhitespace(email.value),
+        password: this.utils.removeWhitespace(password.value)
       }
 
       this.isSubmitting = true;
