@@ -62,7 +62,6 @@ export class ImageComponent {
       return;
     }
 
-      console.log('File selected ', this.selectedFile + " id: " + this.id + " category: " + this.category);
     this.postService.addImagePost(this.selectedFile, this.id, this.category).subscribe({
       next: response => {
         console.log({ response });

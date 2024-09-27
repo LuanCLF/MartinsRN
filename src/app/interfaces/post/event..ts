@@ -1,4 +1,4 @@
-import { ICreatePost, Post } from './post.';
+import { ICreatePost, Post, Posts } from './post.';
 
 export interface ICreateEvent extends ICreatePost {
   date: Date;
@@ -8,5 +8,9 @@ export interface ICreateEvent extends ICreatePost {
 export interface IEvent extends Post {
   date: Date;
   local: string;
-  images: string[];
+}
+
+export interface IEvents extends Posts {
+  date: Date;
+  local: string;
 }

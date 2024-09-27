@@ -1,5 +1,5 @@
 import { environment } from '../../environments/environment';
 
-const apirUrl = environment.apiUrl;
+const apiUrl = environment.apiUrl;
 
-export { apirUrl };
+export { apiUrl };

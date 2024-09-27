@@ -92,7 +92,7 @@ import { ICreateEvent } from '../../../interfaces/post/event.';
                 <div>
                   <label for="eventdate">Data:</label>
                   <input
-                    type="date"
+                    type="datetime-local"
                     id="eventdate"
                     formControlName="date"
                     placeholder="Data"

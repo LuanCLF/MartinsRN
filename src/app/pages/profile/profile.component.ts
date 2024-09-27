@@ -54,7 +54,7 @@ import { ImageComponent } from "../../components/post/image/image.component";
               <h4>Título: {{ item.title }}</h4>
               <div class="btnDeA">
                 <button (click)="deleteHost(item.id!)"><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
-                <app-image [id]="item.id!" [category]="'hosp'"></app-image>
+                <app-image [id]="item.id!" category="hosp"></app-image>
               </div>
             </li>
           </ul>
@@ -75,7 +75,7 @@ import { ImageComponent } from "../../components/post/image/image.component";
               <h4>Título: {{ item.title }}</h4>
               <div class="btnDeA">
                 <button (click)="deleteFeeding(item.id!)"><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
-                <app-image [id]="item.id!" [category]="'food'"></app-image>
+                <app-image [id]="item.id!" category="food"></app-image>
               </div>
             </li>
           </ul>
@@ -95,7 +95,7 @@ import { ImageComponent } from "../../components/post/image/image.component";
               <h4>Título: {{ item.title }}</h4>
               <div class="btnDeA">
                 <button (click)="deleteEvent(item.id!)" ><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
-                <app-image [id]="item.id!" [category]="'event'"></app-image>
+                <app-image [id]="item.id!" category="event"></app-image>
               </div>
             </li>
           </ul>

@@ -16,6 +16,12 @@
   font-family: sans-serif;
 }
 
+@media (forced-colors: active) {
+  body {
+    forced-color-adjust: none;
+  }
+}
+
 header, main, footer, section {
   background-color: var(--color-white);
 }

@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SingupComponent } from './pages/singup/singup.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './guard/auth.guard';
+import { DetailsComponent } from './components/post/details/details.component';
 
 
 export const routes: Routes = [
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'cadastro', component: SingupComponent},
   {path: 'perfil', component: ProfileComponent, canActivate: [authGuard]},
+  {path: 'detalhes', component: DetailsComponent},
   { path: '**', redirectTo: '/' },
 ];

@@ -1,7 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { apirUrl } from './variables';
+import { apiUrl } from './variables';
 import { IUserLogin, IUserRegister } from '../interfaces/user.';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
@@ -12,7 +12,7 @@ import { StorageService } from './storage.service';
 })
 export class UserService {
 
-  private apiUrl = apirUrl;
+  private apiUrl = apiUrl;
   private router = new Router();
   private isBrowser: boolean;
   

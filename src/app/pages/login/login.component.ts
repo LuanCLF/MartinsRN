@@ -4,7 +4,6 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { NavComponent } from "../../components/nav/nav.component";
 import { ButtonComponent } from "../../components/button/button.component";
 import {  HttpClientModule } from '@angular/common/http';
-import { apirUrl } from '../../services/variables';
 import { IUserLogin } from '../../interfaces/user.';
 import { UserService } from '../../services/user.service';
 import { UtilsService } from '../../services/utils.service';
@@ -50,7 +49,6 @@ import { UtilsService } from '../../services/utils.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  apiurl = apirUrl
   isSubmitting = false;
 
   @ViewChild('submitButton') submitButton!: ElementRef<HTMLButtonElement>;

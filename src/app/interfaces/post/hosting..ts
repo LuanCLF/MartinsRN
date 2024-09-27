@@ -1,4 +1,4 @@
-import { ICreatePost, Post } from "./post.";
+import { ICreatePost, Post, Posts } from "./post.";
 
 export interface ICreateHosting extends ICreatePost {
    bedrooms: number;
@@ -14,6 +14,13 @@ export interface IHosting extends Post  {
    vacancy: number;
    serviceArea: boolean;
    kitchen: boolean;
-   images: string[];
+}
+
+export interface IHostings extends Posts  { 
+   bedrooms: number;
+   bathrooms: number;
+   vacancy: number;
+   serviceArea: boolean;
+   kitchen: boolean;
 }
 
