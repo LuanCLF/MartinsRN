@@ -4,6 +4,7 @@ import { ButtonComponent } from '../../button/button.component';
 import { IEvent, IEvents } from '../../../interfaces/post/event.';
 import { PostService } from '../../../services/post.service';
 import { Router } from '@angular/router';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-celebrations',
@@ -172,11 +173,24 @@ export class CelebrationsComponent {
   events: IEvents[] = [];
   page: number = 1;
 
-  constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router) {
+  constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getPost();
+  }
+
+  ngAfterContentInit(): void {
     this.getEvents();
+  }
+
+  getPost(){
+    const storedEvents = this.storage.getPost('feed') as IEvents[];
+    if (Array.isArray(storedEvents)) {
+      this.events = storedEvents;
+    } else {
+      this.events = [];
+    }
   }
 
   passEvents() {
@@ -194,10 +208,11 @@ export class CelebrationsComponent {
       next: response => {
         if (Array.isArray(response)) {
           this.events = response;
-          this.cdr.markForCheck(); 
+          this.storage.setPost('event', this.events)
         } else {
           this.events = [];
         }
+        this.cdr.markForCheck();
       },
       error: error => {
         console.error('Get events failed', error);

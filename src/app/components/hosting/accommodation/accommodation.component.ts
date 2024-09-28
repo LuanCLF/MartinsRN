@@ -5,6 +5,7 @@ import { IHosting, IHostings } from '../../../interfaces/post/hosting.';
 import { PostService } from '../../../services/post.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-accommodation',
@@ -106,11 +107,24 @@ export class AccommodationComponent {
   hosts: IHostings[] = [];
   page: number = 1;
 
-  constructor(private posts: PostService, private cdr: ChangeDetectorRef, private http: HttpClient, private router: Router) {
+  constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getPost();
+  }
+
+  ngAfterContentInit(): void {
     this.getHostings();
+  }
+
+  getPost(){
+    const storedHosts = this.storage.getPost('host') as IHostings[];
+    if (Array.isArray(storedHosts)) {
+      this.hosts = storedHosts;
+    } else {
+      this.hosts = [];
+    }
   }
 
   passHosts() {
@@ -128,10 +142,11 @@ export class AccommodationComponent {
       next: response => {
         if (Array.isArray(response)) {
           this.hosts = response;
-          this.cdr.markForCheck(); 
+          this.storage.setPost('host', this.hosts)
         } else {
           this.hosts = [];
         }
+        this.cdr.markForCheck(); 
       },
       error: error => {
         console.error('Get hostings failed', error);

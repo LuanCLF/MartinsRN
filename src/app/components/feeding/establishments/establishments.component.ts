@@ -4,6 +4,7 @@ import { ButtonComponent } from "../../button/button.component";
 import { IFeeding, IFeedings } from '../../../interfaces/post/feeding.';
 import { PostService } from '../../../services/post.service';
 import { Router } from '@angular/router';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-establishments',
@@ -96,11 +97,24 @@ export class EstablishmentsComponent {
   feeds: IFeedings[] = [];
   page: number = 1;
 
-  constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router) {
+  constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getPost();
+  }
+
+  ngAfterContentInit(): void {
     this.getfeedings();
+  }
+
+  getPost(){
+    const storedFeeds = this.storage.getPost('feed') as IFeedings[];
+    if (Array.isArray(storedFeeds)) {
+      this.feeds = storedFeeds;
+    } else {
+      this.feeds = [];
+    }
   }
 
   passfeeds() {
@@ -118,10 +132,11 @@ export class EstablishmentsComponent {
       next: response => {
         if (Array.isArray(response)) {
           this.feeds = response;
-          this.cdr.markForCheck(); 
+          this.storage.setPost('feed', this.feeds)
         } else {
           this.feeds = [];
         }
+        this.cdr.markForCheck(); 
       },
       error: error => {
         console.error('Get feedings failed', error);

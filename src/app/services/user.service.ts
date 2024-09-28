@@ -73,6 +73,7 @@ export class UserService {
   logout(): void {
     if (this.isBrowser) {
       this.storageService.removeItem('token');
+      this.storageService.removeItem('name');
     }
   }
 
