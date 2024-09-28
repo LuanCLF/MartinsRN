@@ -91,7 +91,7 @@ section {
           display: flex;
           flex-direction: row;
 
-          buttom {
+          button {
             color: var(--color-white);
           }
         }
