@@ -30,16 +30,17 @@ import { UtilsService } from '../../services/utils.service';
         <div>
           <label for="email">Email:</label>
           <input type="email" id="email" formControlName="email" placeholder="Insira seu email" required> 
-          <span id="invalidEmail"></span>
+          <span class="messageErrorOff" id="invalidEmail"></span>
         </div>
         <div>
           <label for="password">Senha:</label>
           <input type="password" id="password" formControlName="password" placeholder="Insira sua senha" required>
-          <span id="invalidPassword"></span>
+          <span class="messageErrorOff" id="invalidPassword"></span>
         </div>
         <button type="submit" #submitButton [disabled]="isSubmitting">
           Acessar minha conta
         </button>
+        <span class="messageErrorOff" id="loginFail">O login falhou, tente novamente</span>
       </form>
     </section>
   </main>
@@ -85,6 +86,7 @@ export class LoginComponent {
           console.log('Login success', response);
           this.submitButton.nativeElement.style.cursor = 'pointer';  
           this.isSubmitting = false;
+          this.loginFailed(false);
         },
         error: error => {
           if (error.conflict) {
@@ -92,6 +94,7 @@ export class LoginComponent {
             else if (error.status === 401) this.passwordInvalid(true, error.message);
           }
           console.error('Login failed', error);
+          this.loginFailed(true);
           this.submitButton.nativeElement.style.cursor = 'pointer';
           this.isSubmitting = false;
         }
@@ -103,16 +106,21 @@ export class LoginComponent {
   emailInvalid(bool:boolean, message?: string){
     const emailInput = document.getElementById('email')!;
     const invalidSpan = document.getElementById('invalidEmail')!;
-    emailInput.style.border = bool ? '1px solid var(--red-2)' : 'none';
-    invalidSpan.style.display = bool ?  'block' : 'none';
+    bool ?  emailInput.classList.add("inputErrorOn") : emailInput.classList.remove("inputErrorOn");
+    bool ?  invalidSpan.classList.add("messageErrorOn") : invalidSpan.classList.remove("messageErrorOn");
     if(message) invalidSpan.innerText = message;
   }
 
   passwordInvalid(bool:boolean, message?: string){
     const passwordInput = document.getElementById('password')!;
     const invalidSpan = document.getElementById('invalidPassword')!;
-    passwordInput.style.border = bool ? '1px solid var(--red-2)' : 'none';
-    invalidSpan.style.display = bool ?  'block' : 'none';
+    bool ?  passwordInput.classList.add("inputErrorOn") : passwordInput.classList.remove("inputErrorOn");
+    bool ?  invalidSpan.classList.add("messageErrorOn") : invalidSpan.classList.remove("messageErrorOn");
     if(message) invalidSpan.innerText = message;
+  }
+
+  loginFailed(bool:boolean){
+    const loginFail = document.getElementById('loginFail')!;
+    bool ?  loginFail.classList.add("messageErrorOn") : loginFail.classList.remove("messageErrorOn");
   }
 }

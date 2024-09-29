@@ -5,6 +5,25 @@ main {
 
   padding: 0 var(--p5);
 
+  @media (min-width: 1001px) {
+    height: 100vh;
+    padding-bottom: 3%;
+
+  }
+
+  @media (max-width: 1000px) {
+    height: 100vh;
+    padding-bottom: 5%;
+  }
+
+  @media (max-width: 850px) {
+    padding-bottom: 10%;
+  }
+
+  @media (max-width: 600px) {
+    padding-bottom: 20%;
+  }
+
   img {
     display: none;
 
@@ -76,17 +95,6 @@ main {
           outline: none;
 
           color: var(--color-black);
-        }
-
-        span {
-          font-size: var(--f1);
-
-          color: var(--red-2);
-
-          margin-top: -10px;
-          margin-bottom: -20px;
-
-          display: none;
         }
       }
     }

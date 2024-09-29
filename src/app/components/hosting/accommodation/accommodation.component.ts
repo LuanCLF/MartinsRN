@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import {  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ButtonComponent } from "../../button/button.component";
 import { IHosting, IHostings } from '../../../interfaces/post/hosting.';
 import { PostService } from '../../../services/post.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../services/storage.service';
 
@@ -19,6 +18,7 @@ import { StorageService } from '../../../services/storage.service';
     <h2>Junte-se a nossa comunidade</h2>
     <p><app-button href="/cadastro" linkText="Cadastre-se" [imgb]=false></app-button> para criar posts aqui</p>
     <div id="pagesBtn">
+      <button #attHosts [disabled]="isSubmitHosts"  (click)="getHostings()">Atualizar</button>
       <button  (click)="passHosts()">Prox</button>
       <button (click)="prevHosts()" >Prev</button>  
     </div>
@@ -106,20 +106,20 @@ import { StorageService } from '../../../services/storage.service';
 export class AccommodationComponent { 
   hosts: IHostings[] = [];
   page: number = 1;
+  isSubmitHosts: boolean = false;
+
+  @ViewChild('attHosts') submitButton!: ElementRef<HTMLButtonElement>;
 
   constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit() {
-    this.getPost();
+   ngOnInit() {
+     this.getPost();
   }
 
-  ngAfterContentInit(): void {
-    this.getHostings();
-  }
-
-  getPost(){
+    getPost(){
     const storedHosts = this.storage.getPost('host') as IHostings[];
+
     if (Array.isArray(storedHosts)) {
       this.hosts = storedHosts;
     } else {
@@ -137,21 +137,28 @@ export class AccommodationComponent {
     this.getHostings();
   }
 
-  getHostings() {
-    this.posts.getAllHostings(this.page).subscribe({
-      next: response => {
-        if (Array.isArray(response)) {
-          this.hosts = response;
-          this.storage.setPost('host', this.hosts)
-        } else {
-          this.hosts = [];
+    getHostings() {
+      this.isSubmitHosts = true;
+      this.submitButton.nativeElement.style.cursor = 'wait';
+      this.posts.getAllHostings(this.page).subscribe({
+        next: response => {
+          if (Array.isArray(response)) {
+            this.hosts = response;
+            this.storage.setPost('host', this.hosts)
+          } else {
+            this.hosts = [];
+          }
+          console.log("ja pegou")
+        },
+        error: error => {
+          console.error('Get hostings failed', error);
+        },
+        complete: () => {
+          this.isSubmitHosts = false;
+          this.submitButton.nativeElement.style.cursor = 'pointer';
+          this.cdr.markForCheck(); 
         }
-        this.cdr.markForCheck(); 
-      },
-      error: error => {
-        console.error('Get hostings failed', error);
-      }
-    });
+      });
   }
 
   goToDetails(host: IHosting) {

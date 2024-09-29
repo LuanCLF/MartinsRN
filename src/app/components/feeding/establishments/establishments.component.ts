@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ButtonComponent } from "../../button/button.component";
 import { IFeeding, IFeedings } from '../../../interfaces/post/feeding.';
 import { PostService } from '../../../services/post.service';
@@ -20,8 +20,9 @@ import { StorageService } from '../../../services/storage.service';
     </h2>
     <p><app-button href="/cadastro" linkText="Cadastre-se" [imgb]=false></app-button> para criar posts aqui</p>
     <div id="pagesBtn">
-      <button  (click)="passfeeds()">Prox</button>
-      <button (click)="prevfeeds()" >Prev</button>  
+      <button #attFeeds [disabled]="isSubmitFeeds"  (click)="getfeedings()">Atualizar</button>
+      <button  (click)="passFeeds()">Prox</button>
+      <button (click)="prevFeeds()" >Prev</button>  
     </div>
     @if(feeds.length > 0) {
       <ul >
@@ -96,19 +97,18 @@ import { StorageService } from '../../../services/storage.service';
 export class EstablishmentsComponent { 
   feeds: IFeedings[] = [];
   page: number = 1;
+  isSubmitFeeds: boolean = false;
+
+  @ViewChild('attFeeds') submitButton!: ElementRef<HTMLButtonElement>;
 
   constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit() {
-    this.getPost();
+  async ngOnInit() {
+    await this.getPost();
   }
 
-  ngAfterContentInit(): void {
-    this.getfeedings();
-  }
-
-  getPost(){
+  async getPost(){
     const storedFeeds = this.storage.getPost('feed') as IFeedings[];
     if (Array.isArray(storedFeeds)) {
       this.feeds = storedFeeds;
@@ -117,17 +117,19 @@ export class EstablishmentsComponent {
     }
   }
 
-  passfeeds() {
+  passFeeds() {
     this.page++;
     this.getfeedings();
   }
 
-  prevfeeds() {
+  prevFeeds() {
     this.page-1 === 0 ? this.page = 1 : this.page--;
     this.getfeedings();
   }
 
-  getfeedings() {
+  async getfeedings() {
+    this.isSubmitFeeds = true;
+    this.submitButton.nativeElement.style.cursor = 'wait';
     this.posts.getAllFeedings(this.page).subscribe({
       next: response => {
         if (Array.isArray(response)) {
@@ -136,10 +138,14 @@ export class EstablishmentsComponent {
         } else {
           this.feeds = [];
         }
-        this.cdr.markForCheck(); 
       },
       error: error => {
         console.error('Get feedings failed', error);
+      },
+      complete: () => {
+        this.isSubmitFeeds = false;
+        this.submitButton.nativeElement.style.cursor = 'pointer';
+        this.cdr.markForCheck();
       }
     });
   }

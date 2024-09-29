@@ -32,7 +32,6 @@ export class UserService {
           observer.complete();
         },
         error: error => {
-          console.log(error.status)
           if (error.status === 409) {
             observer.error({ conflict: true, message: "Usuário já está cadastrado" });
           } else {
@@ -55,7 +54,6 @@ export class UserService {
           observer.complete();
         },
         error: error => {
-          console.log(error.status)
           if (error.status === 404) {
             observer.error({ conflict: true, message: "Usuário não encontrado", status: 404 });
           } else if (error.status === 401) {

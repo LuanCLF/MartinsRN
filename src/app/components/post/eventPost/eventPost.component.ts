@@ -249,7 +249,7 @@ export class EventPostComponent {
         description: this.utils.removeWhitespace(description.value),
         whatsApp: this.utils.removeWhitespace(whatsApp.value),
         instagram: this.utils.removeWhitespace(instagram.value),
-        date: date.value,
+        date: new Date(date.value),
         local: this.utils.removeWhitespace(local.value),
       };
 

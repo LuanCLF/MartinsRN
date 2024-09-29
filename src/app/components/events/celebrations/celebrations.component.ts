@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { IEvent, IEvents } from '../../../interfaces/post/event.';
 import { PostService } from '../../../services/post.service';
@@ -18,6 +18,7 @@ import { StorageService } from '../../../services/storage.service';
     <h2>Eventos cadastrados</h2>
     <p><app-button href="/cadastro" linkText="Cadastre-se" [imgb]=false></app-button> para criar posts aqui</p>
     <div id="pagesBtn">
+      <button #attEvents [disabled]="isSubmitEvents"  (click)="getEvents()">Atualizar</button>
       <button  (click)="passEvents()">Prox</button>
       <button (click)="prevEvents()" >Prev</button>  
     </div>
@@ -172,25 +173,25 @@ import { StorageService } from '../../../services/storage.service';
 export class CelebrationsComponent {
   events: IEvents[] = [];
   page: number = 1;
+  isSubmitEvents: boolean = false;
+
+  @ViewChild('attEvents') submitButton!: ElementRef<HTMLButtonElement>;
 
   constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit() {
-    this.getPost();
+  async ngOnInit() {
+    await this.getPost();
   }
 
-  ngAfterContentInit(): void {
-    this.getEvents();
-  }
-
-  getPost(){
-    const storedEvents = this.storage.getPost('feed') as IEvents[];
+  async getPost(){
+    const storedEvents = this.storage.getPost('event') as IEvents[];
     if (Array.isArray(storedEvents)) {
       this.events = storedEvents;
     } else {
       this.events = [];
     }
+    console.table(this.events);
   }
 
   passEvents() {
@@ -203,7 +204,9 @@ export class CelebrationsComponent {
     this.getEvents();
   }
 
-  getEvents() {
+  async getEvents() {
+    this.isSubmitEvents = true;
+    this.submitButton.nativeElement.style.cursor = 'wait';
     this.posts.getAllEvents(this.page).subscribe({
       next: response => {
         if (Array.isArray(response)) {
@@ -212,10 +215,14 @@ export class CelebrationsComponent {
         } else {
           this.events = [];
         }
-        this.cdr.markForCheck();
       },
       error: error => {
         console.error('Get events failed', error);
+      },
+      complete: () => {
+        this.isSubmitEvents = false;
+        this.submitButton.nativeElement.style.cursor = 'pointer';
+        this.cdr.markForCheck();
       }
     });
   }
