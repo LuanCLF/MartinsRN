@@ -191,7 +191,6 @@ export class CelebrationsComponent {
     } else {
       this.events = [];
     }
-    console.table(this.events);
   }
 
   passEvents() {

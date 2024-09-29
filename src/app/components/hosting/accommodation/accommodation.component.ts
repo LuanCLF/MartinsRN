@@ -149,7 +149,6 @@ export class AccommodationComponent {
           } else {
             this.hosts = [];
           }
-          console.log("ja pegou")
         },
         error: error => {
           console.error('Get hostings failed', error);
