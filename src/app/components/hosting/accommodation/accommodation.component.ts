@@ -120,6 +120,7 @@ export class AccommodationComponent {
     getPost(){
     const storedHosts = this.storage.getPost('host') as IHostings[];
 
+
     if (Array.isArray(storedHosts)) {
       this.hosts = storedHosts;
     } else {
