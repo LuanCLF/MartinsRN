@@ -110,16 +110,14 @@ export class AccommodationComponent {
   constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit() {
-    this.getPost();
-  }
-
-  ngAfterContentInit(): void {
+  async ngOnInit() {
+    await this.getPost();
     this.getHostings();
   }
 
-  getPost(){
+   async getPost(){
     const storedHosts = this.storage.getPost('host') as IHostings[];
+
     if (Array.isArray(storedHosts)) {
       this.hosts = storedHosts;
     } else {
@@ -137,7 +135,7 @@ export class AccommodationComponent {
     this.getHostings();
   }
 
-  getHostings() {
+   async getHostings() {
     this.posts.getAllHostings(this.page).subscribe({
       next: response => {
         if (Array.isArray(response)) {

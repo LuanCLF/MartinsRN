@@ -100,15 +100,12 @@ export class EstablishmentsComponent {
   constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit() {
-    this.getPost();
-  }
-
-  ngAfterContentInit(): void {
+  async ngOnInit() {
+    await this.getPost();
     this.getfeedings();
   }
 
-  getPost(){
+  async getPost(){
     const storedFeeds = this.storage.getPost('feed') as IFeedings[];
     if (Array.isArray(storedFeeds)) {
       this.feeds = storedFeeds;
@@ -127,7 +124,7 @@ export class EstablishmentsComponent {
     this.getfeedings();
   }
 
-  getfeedings() {
+  async getfeedings() {
     this.posts.getAllFeedings(this.page).subscribe({
       next: response => {
         if (Array.isArray(response)) {

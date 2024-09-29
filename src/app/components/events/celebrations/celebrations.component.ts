@@ -176,15 +176,12 @@ export class CelebrationsComponent {
   constructor(private posts: PostService, private cdr: ChangeDetectorRef, private router: Router, private storage: StorageService) {
   }
 
-  ngOnInit() {
-    this.getPost();
-  }
-
-  ngAfterContentInit(): void {
+  async ngOnInit() {
+    await this.getPost();
     this.getEvents();
   }
 
-  getPost(){
+  async getPost(){
     const storedEvents = this.storage.getPost('feed') as IEvents[];
     if (Array.isArray(storedEvents)) {
       this.events = storedEvents;
@@ -203,7 +200,7 @@ export class CelebrationsComponent {
     this.getEvents();
   }
 
-  getEvents() {
+  async getEvents() {
     this.posts.getAllEvents(this.page).subscribe({
       next: response => {
         if (Array.isArray(response)) {

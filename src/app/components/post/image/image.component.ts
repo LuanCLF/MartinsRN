@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PostService } from '../../../services/post.service';
 
@@ -23,10 +23,11 @@ import { PostService } from '../../../services/post.service';
       <div class="modal-body">
           <form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
             <div>
-                <input type="file" (change)="onFileChange($event)">
+              <label for="imageInputAdd">Escolha um arquivo, de preferência .jpg/.png</label>
+              <input type="file" id="imageInputAdd" (change)="onFileChange($event)">
             </div>
             <div>
-              <button type="submit">Adicionar</button>
+              <button type="submit" #submitImageBtn  [disabled]="isSubmitImage">Adicionar</button>
             </div>
           </form>
       </div>
@@ -42,6 +43,9 @@ export class ImageComponent {
   isModalOpen = false;
   imageForm: FormGroup;
   selectedFile: File | null = null;
+  isSubmitImage = false;
+
+  @ViewChild('submitImageBtn') submitImageBtn!: ElementRef<HTMLButtonElement>;
 
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private postService: PostService) {
     this.imageForm = this.fb.group({
@@ -56,20 +60,26 @@ export class ImageComponent {
     }
   }
 
-  onSubmit() {
-    if (!this.selectedFile) {
-      console.log('No file selected');
-      return;
-    }
+  async  onSubmit() {
+    this.isSubmitImage = true;
+    this.submitImageBtn.nativeElement.style.cursor = 'wait';
+    await this.addImage();
+    this.isSubmitImage = false;
+    this.submitImageBtn.nativeElement.style.cursor = 'pointer';
+    this.closeModal();
+  }
 
-    this.postService.addImagePost(this.selectedFile, this.id, this.category).subscribe({
-      next: response => {
-        console.log({ response });
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
+  async addImage() {
+    if (this.selectedFile) {
+      this.postService.addImagePost(this.selectedFile, this.id, this.category).subscribe({
+        next: response => {
+          console.log(response);
+        },
+        error: error => {
+          console.log(error);
+        }
+      });
+    } 
   }
 
   openModal() {

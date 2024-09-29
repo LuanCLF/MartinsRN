@@ -53,7 +53,7 @@ import { ImageComponent } from "../../components/post/image/image.component";
             <li *ngFor="let item of hostList; let i = index">
               <h4>Título: {{ item.title }}</h4>
               <div class="btnDeA">
-                <button (click)="deleteHost(item.id!)"><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
+                <button id="deleteBtn{{item.id}}" (click)="deleteHost(item.id!)"><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
                 <app-image [id]="item.id!" category="hosp"></app-image>
               </div>
             </li>
@@ -74,7 +74,7 @@ import { ImageComponent } from "../../components/post/image/image.component";
             <li *ngFor="let item of feedList; let i = index">
               <h4>Título: {{ item.title }}</h4>
               <div class="btnDeA">
-                <button (click)="deleteFeeding(item.id!)"><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
+                <button id="deleteBtn{{item.id}}" (click)="deleteFeeding(item.id!)"><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
                 <app-image [id]="item.id!" category="food"></app-image>
               </div>
             </li>
@@ -94,7 +94,7 @@ import { ImageComponent } from "../../components/post/image/image.component";
             <li *ngFor="let item of eventList; let i = index">
               <h4>Título: {{ item.title }}</h4>
               <div class="btnDeA">
-                <button (click)="deleteEvent(item.id!)" ><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
+                <button id="deleteBtn{{item.id}}" (click)="deleteEvent(item.id!)" ><img src="assets/icons/delete.svg" alt="ícone de excluir"/></button>
                 <app-image [id]="item.id!" category="event"></app-image>
               </div>
             </li>
@@ -108,7 +108,6 @@ import { ImageComponent } from "../../components/post/image/image.component";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent {
-  
   hostList: IHosting[] = [];
   feedList: IFeeding[] = [];
   eventList: IEvent[] = [];
@@ -168,7 +167,6 @@ export class ProfileComponent {
       next: response => {
         if (Array.isArray(response)) {
           this.hostList = response;
-          console.table(this.hostList);
           this.cdr.markForCheck(); 
         } else if(response === 'sem token') {
           this.router.navigate(['/login']);
@@ -224,7 +222,19 @@ export class ProfileComponent {
     });
   }
 
+  btn(id: string, active: boolean) {
+    const button = document.getElementById(id)!;
+    if(active){
+      button.style.cursor = 'wait';
+      (button as HTMLButtonElement).disabled = true;
+    }else {
+      button.style.cursor = 'wait';
+      (button as HTMLButtonElement).disabled = true;
+    }
+  }
+
   deleteHost(id: string) {
+    this.btn('deleteBtn'+id, true);
     this.postService.deleteHostPost(id).subscribe({
       next: () => {
         this.hostList = this.hostList.filter(item => item.id !== id);
@@ -232,11 +242,15 @@ export class ProfileComponent {
       },
       error: error => {
         console.error('Delete hosting failed', error);
+      },
+      complete: () => {
+        this.btn('deleteBtn'+id, false);
       }
     });
   }
 
   deleteFeeding(id: string) {
+    this.btn('deleteBtn'+id, true);
     this.postService.deleteFeedingPost(id).subscribe({
       next: () => {
         this.feedList = this.feedList.filter(item => item.id !== id);
@@ -244,11 +258,15 @@ export class ProfileComponent {
       },
       error: error => {
         console.error('Delete feeding failed', error);
+      },
+      complete: () => {
+        this.btn('deleteBtn'+id, false);
       }
     });
   }
 
   deleteEvent(id: string) {
+    this.btn('deleteBtn'+id, true);
     this.postService.deleteEventPost(id).subscribe({
       next: () => {
         this.eventList = this.eventList.filter(item => item.id !== id);
@@ -256,6 +274,9 @@ export class ProfileComponent {
       },
       error: error => {
         console.error('Delete event failed', error);
+      },
+      complete: () => {
+        this.btn('deleteBtn'+id, false);
       }
     });
   }
